@@ -1,0 +1,43 @@
+<!-- frontend/movie.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Movie Details</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🎞️ Movie Reviews</h1>
+  <div id="reviews"></div>
+
+  <script>
+    const API_BASE = "http://localhost:8000";
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const slug = urlParams.get("slug");
+
+    async function loadReviews() {
+      const res = await fetch(`${API_BASE}/movie/${slug}`);
+      const reviews = await res.json();
+
+      const container = document.getElementById("reviews");
+      if (reviews.length === 0) {
+        container.innerHTML = "<p>No reviews available.</p>";
+        return;
+      }
+
+      reviews.forEach(r => {
+        const div = document.createElement("div");
+        div.className = "review-box";
+        div.innerHTML = `
+          <p>⭐ ${r.stars ?? "N/A"}</p>
+          <blockquote>${r.review}</blockquote>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    loadReviews();
+  </script>
+</body>
+</html>
