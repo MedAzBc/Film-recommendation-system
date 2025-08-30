@@ -78,7 +78,7 @@ http://127.0.0.1:5000/
 ---
 
 ## 📊 Example Dataset
-The system uses a dataset containing movies with features such as:
+The system uses a scrapped dataset containing movies with features such as:
 - Title  
 - Genres  
 - Description/Overview  
